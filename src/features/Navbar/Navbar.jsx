@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import './Navbar.css';
 import { MdClose } from 'react-icons/md';
 import { FiMenu } from 'react-icons/fi';
 import { NavLink, Outlet } from 'react-router-dom';
-// import Logo from '../Logo/Logo';
-// import Footer from '../Footer/';
+import Logo from '../Logo/Logo';
+import Footer from '../Footer/Footer';
 
 const Navbar = () => {
   const links = [
@@ -46,7 +45,7 @@ const Navbar = () => {
           )}
         </button>
         <ul className={`menuNav ${navbarOpen ? 'showMenu' : ''}`}>
-          {/* <Logo /> */}
+          <Logo />
           {links.map((link) => (
             <li key={link.id} onClick={() => closeMenu()} aria-hidden="true">
               <NavLink data-testid={link.text} to={link.path}>
@@ -57,7 +56,7 @@ const Navbar = () => {
         </ul>
       </nav>
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
