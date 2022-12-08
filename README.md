@@ -1,27 +1,5 @@
 <a name="readme-top"></a>
 
-<!--
-HOW TO USE:
-This is an example of how you may give instructions on setting up your project locally.
-
-Modify this file to match your project and remove sections that don't apply.
-
-REQUIRED SECTIONS:
-- Table of Contents
-- About the Project
-  - Built With
-  - Live Demo
-- Getting Started
-- Authors
-- Future Features
-- Contributing
-- Show your support
-- Acknowledgements
-- License
-
-After you're finished please remove all the comments and instructions!
--->
-
 <div align="center">
 
   <img src="murple_logo.png" alt="logo" width="140"  height="auto" />
@@ -55,9 +33,9 @@ After you're finished please remove all the comments and instructions!
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Project <a name="about-project"></a>
+# 📖 Bookstore <a name="about-project"></a>
 
-> "Project"
+> "Bookstore" is a website that allows your to display a list of books, add book to and also remove a selected book from a collection.
 
 ## 🛠 Built With <a name="built-with"></a>
 - HTML
@@ -80,9 +58,11 @@ After you're finished please remove all the comments and instructions!
 
 ### Key Features <a name="key-features"></a>
 
-> Using the project will help you to : 
+> Using the project will help you to: 
 
-- **Be able so do basic calculations**
+- **Be able to display a list of books**
+- **Be able to add a book**
+- **Be able to revome a selected book**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -112,7 +92,7 @@ In order to run this project you need:
 ### Setup
 
 Clone this repository by using the command line : 
-- `git clone https://github.com/manq2010/<repo>`
+- `git clone https://github.com/manq2010/bookstore`
 
 ### Install
 
@@ -157,7 +137,7 @@ You can deploy this project using:
 ## 🔭 Future Features <a name="future-features"></a>
 
 
-- **Use Fragments and more hooks ⏳⌛️**
+- **Use Redux to manage states ⏳⌛️**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -194,7 +174,7 @@ Give a ⭐️ if you like this project!
 
 - **How to use the project**
 
-  - ```git clone https://github.com/manq2010/math-magicians```
+  - ```git clone https://github.com/manq2010/bookstore```
 
 - **How to contribute to the project**
 
