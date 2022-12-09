@@ -1,8 +1,10 @@
 import React from 'react';
+import Books from '../features/Books/Books';
 
 const BooksPage = () => (
   <div>
-    <p className="text">Books</p>
+    <h2 className="text">Books</h2>
+    <Books />
   </div>
 );
 
