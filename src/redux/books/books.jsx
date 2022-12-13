@@ -8,7 +8,23 @@ const EDIT = 'my-app/bookstore/EditBook';
 // Define an initial state value for the app
 
 const initialState = {
-  books: [],
+  books: [
+    {
+      id: 1,
+      title: 'Book 1',
+      description: 'Book Description 1',
+    },
+    {
+      id: 2,
+      title: 'Book 2',
+      description: 'Book Description 2',
+    },
+    {
+      id: 3,
+      title: 'Book 3',
+      description: 'Book Description 3',
+    },
+  ],
 };
 // Reducer
 
