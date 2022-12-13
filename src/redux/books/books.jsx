@@ -16,10 +16,12 @@ const bookReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
       return {
+        ...state,
         books: [...state.books, action.payload],
       };
     case ADD:
       return {
+        ...state,
         books: [...state.books, action.payload],
       };
     case REMOVE:
