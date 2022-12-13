@@ -69,10 +69,4 @@ export const RemoveBook = (id) => ({ type: REMOVE, payload: id });
 
 export const EditBook = (id) => ({ type: EDIT, payload: id });
 
-// export const EditBook = (id) => {
-//     dispatch({ type: EDIT, payload: id });
-//   };
-
-// Action Creators - aync fuctions
-
 export default bookReducer;

@@ -1,12 +1,12 @@
 import { applyMiddleware, legacy_createStore as createStore, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-// import thunkMiddleware from 'redux-thunk'
-// npm install redux-thunk
 
-import { bookReducer } from './Books/BooksRedux';
+import { bookReducer } from './books/books';
+import { categoriesReducer } from './categories/categories';
 
 const rootReducer = combineReducers({
   book: bookReducer,
+  categories: categoriesReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
