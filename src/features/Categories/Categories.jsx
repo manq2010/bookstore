@@ -9,8 +9,14 @@ const Categories = () => {
   return (
     <>
       <h2 className="text">Categories</h2>
-      <button type="button" onClick={() => dispatch(CheckStatus())}>Check status</button>
+      <button
+        type="button"
+        onClick={() => dispatch(CheckStatus())}
+      >
+        Check status
+      </button>
       <p>
+
         <strong>Status:</strong>
         {' '}
         {category.status}

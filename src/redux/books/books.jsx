@@ -11,18 +11,21 @@ const initialState = {
   books: [
     {
       id: 1,
-      title: 'Book 1',
-      description: 'Book Description 1',
+      author: 'author 1',
+      title: 'Book Description 1',
+      category: 'Sci-Fi',
     },
     {
       id: 2,
-      title: 'Book 2',
-      description: 'Book Description 2',
+      author: 'author 2',
+      title: 'Book Description 2',
+      category: 'Economy',
     },
     {
       id: 3,
-      title: 'Book 3',
-      description: 'Book Description 3',
+      author: 'author 3',
+      title: 'Book Description 3',
+      category: 'Sports',
     },
   ],
 };
@@ -42,7 +45,7 @@ const bookReducer = (state = initialState, action) => {
       };
     case REMOVE:
       return {
-        books: [...state.filter((item) => item.id !== action.payload)],
+        books: [...state.books.filter((item) => item.id !== action.payload)],
       };
 
     case EDIT:
@@ -58,7 +61,7 @@ const bookReducer = (state = initialState, action) => {
 
 export const LoadBooks = (book) => ({ type: LOAD, payload: book });
 
-export const AddBook = () => ({ type: ADD });
+export const AddBook = (book) => ({ type: ADD, payload: book });
 
 export const RemoveBook = (id) => ({ type: REMOVE, payload: id });
 
