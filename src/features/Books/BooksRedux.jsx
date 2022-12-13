@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 // Actions
 
 const LOAD = 'my-app/bookstore/LOAD';
@@ -9,21 +11,21 @@ const EDIT = 'my-app/bookstore/EDIT';
 
 const initialState = [
   {
-    id: 1,
+    id: uuidv4(),
     title: 'The Hunger Games',
     author: 'Suzanne Collins',
     comment: 'This is a comment',
     catergory: 'Economy  ',
   },
   {
-    id: 2,
+    id: uuidv4(),
     title: 'Dunes',
     author: 'Frank Herbert',
     comment: 'This is a comment',
     catergory: 'Science Friction',
   },
   {
-    id: 3,
+    id: uuidv4(),
     title: 'The Capital in the twenty-First Century',
     author: 'Suzanne Collins',
     comment: 'This is a comment',
@@ -36,16 +38,16 @@ const initialState = [
 export const bookReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
-      return {
-        [state.id]: action.payload,
-      };
+      return [
+        ...state, action.payload,
+      ];
     case ADD:
-      return {
-
-      };
+      return [
+        ...state, action.payload,
+      ];
     case REMOVE:
       return {
-
+        ...state.filter((item) => item.id !== action.payload),
       };
 
     case EDIT:
@@ -59,17 +61,18 @@ export const bookReducer = (state = initialState, action) => {
 
 // Action Creators
 
-export const AddBook = () => ({
-  type: ADD,
-//     payload: {
-//       id: 1,
-//       title: 'Book title',
-//       author: 'Suzanne Collins',
-//       comment: 'This is a comment',
-});
+export const LoadBooks = (book) => ({ type: LOAD, payload: book });
 
-export const RemoveBook = () => ({ type: REMOVE });
+export const AddBook = () => ({ type: ADD });
 
-export const EditBook = () => ({ type: EDIT });
+export const RemoveBook = (id) => ({ type: REMOVE, payload: id });
+
+export const EditBook = (id) => ({ type: EDIT, payload: id });
+
+// export const EditBook = (id) => {
+//     dispatch({ type: EDIT, payload: id });
+//   };
+
+// Action Creators - aync fuctions
 
 export default bookReducer;

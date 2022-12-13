@@ -1,48 +1,36 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import BookItem from './BookItem';
+// import { LoadBooks } from './BooksRedux';
 
 const Books = () => {
-  const books = [
-    {
-      id: 1,
-      title: 'The Hunger Games',
-      author: 'Suzanne Collins',
-      comment: 'This is a comment',
-      catergory: 'Economy  ',
-    },
-    {
-      id: 2,
-      title: 'Dunes',
-      author: 'Frank Herbert',
-      comment: 'This is a comment',
-      catergory: 'Science Friction',
-    },
-    {
-      id: 3,
-      title: 'The Capital in the twenty-First Century',
-      author: 'Suzanne Collins',
-      comment: 'This is a comment',
-      catergory: 'Science Friction',
-    },
-  ];
+  const books = useSelector((state) => state.book);
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(LoadBooks);
+  // }, []);
+
+  console.log(books);
 
   return (
     <>
-      {!books.length !== 0 && (
-        <ul>
-          {books.map((book) => (
-            <li key={book.id}>
-              {book.title}
-              <br />
-              {book.author}
-              <br />
-              <button type="button">Comments</button>
-              <button type="button">Remove</button>
-              <button type="button">Edit</button>
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* {!books.length !== 0 && ( */}
+      <ul>
+        { books && books.map((book) => (
+          <li key={book.id}>
+            {book.title}
+            <br />
+            {book.author}
+            <br />
+            <button type="button">Comments</button>
+            <button type="button">Remove</button>
+            <button type="button">Edit</button>
+          </li>
+        ))}
+      </ul>
+      {/* )} */}
       <h3 className="text"> Add Book Name! </h3>
       <BookItem />
     </>
