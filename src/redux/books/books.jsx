@@ -1,58 +1,35 @@
-import { v4 as uuidv4 } from 'uuid';
-
 // Actions
 
-const LOAD = 'my-app/bookstore/LOAD';
-const ADD = 'my-app/bookstore/ADD';
-const REMOVE = 'my-app/bookstore/REMOVE';
-const EDIT = 'my-app/bookstore/EDIT';
+const LOAD = 'bookstore/books/LoadBooks';
+const ADD = 'bookstore/books/AddBook';
+const REMOVE = 'bookstore/books/RemoveBook';
+const EDIT = 'my-app/bookstore/EditBook';
 
 // Define an initial state value for the app
 
-const initialState = [
-  {
-    id: uuidv4(),
-    title: 'The Hunger Games',
-    author: 'Suzanne Collins',
-    comment: 'This is a comment',
-    catergory: 'Economy  ',
-  },
-  {
-    id: uuidv4(),
-    title: 'Dunes',
-    author: 'Frank Herbert',
-    comment: 'This is a comment',
-    catergory: 'Science Friction',
-  },
-  {
-    id: uuidv4(),
-    title: 'The Capital in the twenty-First Century',
-    author: 'Suzanne Collins',
-    comment: 'This is a comment',
-    catergory: 'Science Friction',
-  },
-];
-
+const initialState = {
+  books: [],
+};
 // Reducer
 
-export const bookReducer = (state = initialState, action) => {
+const bookReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
-      return [
-        ...state, action.payload,
-      ];
+      return {
+        books: [...state.books, action.payload],
+      };
     case ADD:
-      return [
-        ...state, action.payload,
-      ];
+      return {
+        books: [...state.books, action.payload],
+      };
     case REMOVE:
       return {
-        ...state.filter((item) => item.id !== action.payload),
+        books: [...state.filter((item) => item.id !== action.payload)],
       };
 
     case EDIT:
       return {
-
+        books: [...state.books, action.payload],
       };
     default:
       return state;

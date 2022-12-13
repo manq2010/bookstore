@@ -1,28 +1,31 @@
 // Actions
-
-const LOAD = 'my-app/categories/LOAD';
-const STATUS = 'my-app/categories/STATUS';
+const LOAD = 'my-app/categories/LoadCategories';
+const STATUS = 'my-app/categories/CheckStatus';
 
 // Define an initial state value for the app
 
 const initialState = [
   {
-    status: 'Under construction',
+    categories: [],
+    status: '',
   },
 ];
 
 // Reducer
 
-export const categoriesReducer = (state = initialState, action) => {
+const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
-      return [
-        ...state, action.payload,
-      ];
+      return {
+        ...state,
+        categories: [...state, action.payload],
+        status: action.payload,
+      };
     case STATUS:
-      return [
-        ...state, action.payload,
-      ];
+      return {
+        ...state,
+        status: action.payload,
+      };
     default:
       return state;
   }
@@ -30,8 +33,8 @@ export const categoriesReducer = (state = initialState, action) => {
 
 // Action Creators
 
-export const LoadCategories = () => ({ type: LOAD });
+export const LoadCategories = () => ({ type: LOAD, payload: 'Under construction' });
 
-export const ShowStatus = () => ({ type: STATUS });
+export const CheckStatus = () => ({ type: STATUS });
 
 export default categoriesReducer;
