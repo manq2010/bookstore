@@ -35,6 +35,6 @@ const categoriesReducer = (state = initialState, action) => {
 
 export const LoadCategories = () => ({ type: LOAD, payload: 'Under construction' });
 
-export const CheckStatus = () => ({ type: STATUS });
+export const CheckStatus = () => ({ type: LOAD, payload: 'Under construction' });
 
 export default categoriesReducer;

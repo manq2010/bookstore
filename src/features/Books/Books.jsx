@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import BookItem from './BookItem';
-import { LoadBooks } from '../../redux/books/books';
+import { LoadBooks, RemoveBook } from '../../redux/books/books';
 
 const Books = () => {
-  const books = useSelector((state) => state.book);
-
+  const books = useSelector((state) => state.book.books);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(LoadBooks);
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      {/* {!books.length !== 0 && ( */}
       <ul>
         { books && books.map((book) => (
           <li key={book.id}>
@@ -22,13 +20,19 @@ const Books = () => {
             <br />
             {book.author}
             <br />
+            {book.category}
+            <br />
             <button type="button">Comments</button>
-            <button type="button">Remove</button>
+            <button
+              type="button"
+              onClick={() => dispatch(RemoveBook(book.id))}
+            >
+              Remove
+            </button>
             <button type="button">Edit</button>
           </li>
         ))}
       </ul>
-      {/* )} */}
       <h3 className="text"> Add Book Name! </h3>
       <BookItem />
     </>
