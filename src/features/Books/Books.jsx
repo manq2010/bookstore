@@ -8,7 +8,7 @@ const Books = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(LoadBooks);
+    dispatch(LoadBooks).then((data) => console.log(data));
   }, [dispatch]);
 
   return (

@@ -4,19 +4,24 @@ import { v4 as uuidv4 } from 'uuid';
 import { AddBook } from '../../redux/books/books';
 
 const BookItem = () => {
-  // const [title, setTitle] = useState('');
-  // const [author, setAuthor] = useState('');
-
-  const [values, setValues] = useState({
+  const valueInitialState = {
     title: '',
     author: '',
     category: 'Action',
-  });
+  };
+
+  const [values, setValues] = useState(valueInitialState);
+  const [submitted, setSubmitted] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmitAnother = () => {
+    setSubmitted(false);
   };
 
   const handleSubmit = (e) => {
@@ -30,48 +35,62 @@ const BookItem = () => {
         category,
       };
       dispatch(AddBook(bookArray));
+      setSubmitted(true);
       setValues('');
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          value={values.title || ''}
-          id="bookItemId"
-          placeholder="Book Title"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="author"
-          id="authorId"
-          value={values.author || ''}
-          placeholder="Author Name"
-          onChange={handleChange}
-        />
-
-        <label htmlFor="categoryId" className="form-label">
-          Book Category
-          {' '}
-          {' '}
-          <select
-            name="category"
-            value={values.category || ''}
-            id="categoryId"
-            onChange={handleChange}
+      {submitted ? (
+        <div>
+          <h4>You submitted successfully!</h4>
+          <button
+            type="submit"
+            className="btn btn-success"
+            onClick={handleSubmitAnother}
           >
-            <option value="Action">Action</option>
-            <option value="Science">Science Friction</option>
-            <option value="Economy">Economy</option>
-            <option value="Sports">Sports</option>
-          </select>
-        </label>
-        <input type="submit" value="Add Book" />
-      </form>
+            Add Another
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            value={values.title || ''}
+            id="bookItemId"
+            placeholder="Book Title"
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="author"
+            id="authorId"
+            value={values.author || ''}
+            placeholder="Author Name"
+            onChange={handleChange}
+          />
+
+          <label htmlFor="categoryId" className="form-label">
+            Book Category
+            {' '}
+            {' '}
+            <select
+              name="category"
+              value={values.category || ''}
+              id="categoryId"
+              onChange={handleChange}
+            >
+              <option value="Action">Action</option>
+              <option value="Science">Science Friction</option>
+              <option value="Economy">Economy</option>
+              <option value="Sports">Sports</option>
+            </select>
+          </label>
+          <input type="submit" value="Add Book" />
+        </form>
+      )}
     </div>
   );
 };
