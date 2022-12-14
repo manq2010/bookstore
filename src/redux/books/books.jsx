@@ -1,4 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
 // AAction Types
@@ -31,6 +30,7 @@ const initialState = {
   //     category: 'Sports',
   //   },
   // ],
+
   books: [],
 };
 // Reducer
@@ -64,34 +64,50 @@ const bookReducer = (state = initialState, action) => {
 
 // Action Creators
 
-export const LoadBooks = createAsyncThunk(
-  'bookstore/books/LoadBooks',
-  async () => {
+export const Books = (books) => ({ type: LOAD, payload: books });
+
+export const LoadBooks = () => async (dispatch) => {
+  try {
     const response = await axios.get('/books');
-    return response.data.data;
-  },
-);
+    const books = Object.keys(response.data).map((key) => ({
+      id: key,
+      ...response.data[key][0],
+    }));
+    console.log(books);
+    dispatch(Books(books));
+    return Promise.resolve(books);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 
-export const AddBook = createAsyncThunk(
-  'bookstore/books/AddBook',
-  async (book) => {
-    const response = await axios.post('/books', book);
-    return response.data.data;
-  },
-);
+export const AddBook = (book) => async (dispatch) => {
+  try {
+    const response = await axios.post('/books',
+      {
+        item_id: book.id,
+        title: book.title,
+        author: book.author,
+        category: book.category,
+      });
+    console.log(response);
+    dispatch({ type: ADD, payload: book });
+    return Promise.resolve(response);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 
-// (book) => ({ type: ADD, payload: book });
-
-export const RemoveBook = createAsyncThunk(
-  'bookstore/books/RemoveBook',
-  async ({ id }) => {
-    await axios.delete(`/books/${id}`);
-    return { id };
-  },
-);
+export const RemoveBook = (id) => async (dispatch) => {
+  try {
+    const response = await axios.post(`/books/${id}`);
+    dispatch({ type: REMOVE, payload: id });
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 
 // (id) => ({ type: REMOVE, payload: id });
-
-export const EditBook = (id) => ({ type: EDIT, payload: id });
 
 export default bookReducer;

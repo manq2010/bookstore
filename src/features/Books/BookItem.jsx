@@ -7,7 +7,7 @@ const BookItem = () => {
   const valueInitialState = {
     title: '',
     author: '',
-    category: 'Action',
+    category: '',
   };
 
   const [values, setValues] = useState(valueInitialState);
@@ -32,7 +32,7 @@ const BookItem = () => {
         title,
         author,
         id: uuidv4(),
-        category,
+        category: category || 'Action',
       };
       dispatch(AddBook(bookArray));
       setSubmitted(true);

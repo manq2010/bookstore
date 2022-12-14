@@ -4,12 +4,14 @@ import BookItem from './BookItem';
 import { LoadBooks, RemoveBook } from '../../redux/books/books';
 
 const Books = () => {
-  const books = useSelector((state) => state.book.books);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(LoadBooks).then((data) => console.log(data));
+    dispatch(LoadBooks);
   }, [dispatch]);
+
+  const books = useSelector((state) => state.book.books);
+  console.log(books);
 
   return (
     <>
