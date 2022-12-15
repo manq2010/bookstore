@@ -1,4 +1,7 @@
-// Actions
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from '../../axios';
+
+// AAction Types
 
 const LOAD = 'bookstore/books/LoadBooks';
 const ADD = 'bookstore/books/AddBook';
@@ -8,49 +11,31 @@ const EDIT = 'my-app/bookstore/EditBook';
 // Define an initial state value for the app
 
 const initialState = {
-  books: [
-    {
-      id: 1,
-      author: 'author 1',
-      title: 'Book Description 1',
-      category: 'Sci-Fi',
-    },
-    {
-      id: 2,
-      author: 'author 2',
-      title: 'Book Description 2',
-      category: 'Economy',
-    },
-    {
-      id: 3,
-      author: 'author 3',
-      title: 'Book Description 3',
-      category: 'Sports',
-    },
-  ],
+  books: [],
 };
 // Reducer
 
 const bookReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case LOAD:
+  const { type, payload } = action;
+  switch (type) {
+    case `${LOAD}/fulfilled`:
       return {
         ...state,
-        books: [...state.books, action.payload],
+        books: [payload],
       };
-    case ADD:
+    case `${ADD}/fulfilled `:
       return {
         ...state,
-        books: [...state.books, action.payload],
+        books: [...state.books, payload],
       };
-    case REMOVE:
+    case `${REMOVE}/fulfilled`:
       return {
-        books: [...state.books.filter((item) => item.id !== action.payload)],
+        books: [...state.books.filter((item) => item.id !== payload)],
       };
 
     case EDIT:
       return {
-        books: [...state.books, action.payload],
+        books: [...state.books, payload],
       };
     default:
       return state;
@@ -59,12 +44,41 @@ const bookReducer = (state = initialState, action) => {
 
 // Action Creators
 
-export const LoadBooks = (book) => ({ type: LOAD, payload: book });
+export const LoadBooks = createAsyncThunk(
+  LOAD,
+  async () => {
+    const response = await axios.get('/books');
+    const books = Object.keys(response.data).map((key) => ({
+      item_id: key,
+      ...response.data[key][0],
+    }));
+    return books;
+  },
+);
 
-export const AddBook = (book) => ({ type: ADD, payload: book });
+export const AddBook = createAsyncThunk(
+  ADD,
+  async (book) => {
+    const response = await axios.post('/books',
+      {
+        item_id: book.id,
+        title: book.title,
+        author: book.author,
+        category: book.category,
+      });
+    return response.data;
+  },
+);
 
-export const RemoveBook = (id) => ({ type: REMOVE, payload: id });
-
-export const EditBook = (id) => ({ type: EDIT, payload: id });
+export const RemoveBook = createAsyncThunk(
+  REMOVE,
+  async (id) => {
+    await axios.delete(`/books/${id}`,
+      {
+        item_id: id,
+      });
+    return { id };
+  },
+);
 
 export default bookReducer;

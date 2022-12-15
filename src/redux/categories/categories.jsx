@@ -1,4 +1,5 @@
-// Actions
+// Action Types
+
 const LOAD = 'my-app/categories/LoadCategories';
 const STATUS = 'my-app/categories/CheckStatus';
 
