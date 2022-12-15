@@ -18,6 +18,54 @@ const FormSection = styled.section`
   border-top: 2px solid #5b5c5c;
 `;
 
+const InputForm = styled.input`
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
+    background-color: #fff;
+    font-size: 1rem;
+    letter-spacing: -.15px;
+    color: #121212;
+    width: 30%;
+    margin-right: 1rem;
+    @media (min-width: 768px) {
+      width: 30%;
+    }
+`;
+
+const SelectInput = styled.select`
+padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  font-size: 1rem;
+  letter-spacing: -.15px;
+  color: #121212;
+  width: 35%;
+  margin-right: 1rem;
+  position: relative;
+  @media (min-width: 768px) {
+    width: 20%;
+  }
+`;
+
+const AddBookButton = styled.input`
+  cursor: pointer;
+  width: 20%;
+  padding: 12px;
+  border-radius: 3px;
+  background-color: #0290ff;
+  border: none;
+  letter-spacing: .5px;
+  color: #fff;
+  font-size: .813rem;
+  font-weight: 700;
+  font-family: "Roboto Slab",serif;
+  width: 6rem;
+  margin-top: 1rem;
+  
+`;
+
 const BookItem = () => {
   const valueInitialState = {
     title: '',
@@ -88,7 +136,6 @@ const BookItem = () => {
             </li>
           ))}
       <FormSection>
-
         <AddBookHeader className="text"> Add New book </AddBookHeader>
 
         {submitted ? (
@@ -104,7 +151,7 @@ const BookItem = () => {
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <input
+            <InputForm
               type="text"
               name="title"
               value={values.title || ''}
@@ -112,7 +159,7 @@ const BookItem = () => {
               placeholder="Book Title"
               onChange={handleChange}
             />
-            <input
+            <InputForm
               type="text"
               name="author"
               id="authorId"
@@ -120,23 +167,18 @@ const BookItem = () => {
               placeholder="Author Name"
               onChange={handleChange}
             />
-
-            <label htmlFor="categoryId" className="form-label">
-              Book Category
-              {' '}
-              <select
-                name="category"
-                value={values.category || ''}
-                id="categoryId"
-                onChange={handleChange}
-              >
-                <option value="Action">Action</option>
-                <option value="Science">Science Friction</option>
-                <option value="Economy">Economy</option>
-                <option value="Sports">Sports</option>
-              </select>
-            </label>
-            <input type="submit" value="Add Book" />
+            <SelectInput
+              name="category"
+              value={values.category || ''}
+              id="categoryId"
+              onChange={handleChange}
+            >
+              <option value="Action">Action</option>
+              <option value="Science">Science Friction</option>
+              <option value="Economy">Economy</option>
+              <option value="Sports">Sports</option>
+            </SelectInput>
+            <AddBookButton type="submit" value="Add Book" />
           </form>
         )}
       </FormSection>

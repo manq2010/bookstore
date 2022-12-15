@@ -47,7 +47,7 @@ const MenuNavUL = styled.ul`
     gap: 2rem;
     margin-top: 0;
     align-items: center;
-  
+    height: 2.5rem;
     opacity: .5;
     font-family: "Montserrat",sans-serif;
     font-size: .813rem;
