@@ -1,3 +1,4 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
 // AAction Types
@@ -35,20 +36,22 @@ const initialState = {
 };
 // Reducer
 
+// const [pending, fulfilled, rejected] = createAsyncThunkStates;
+
 const bookReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case LOAD:
+    case `${LOAD}/fulfilled`:
+      return {
+        ...state,
+        books: [payload],
+      };
+    case `${ADD}/fulfilled `:
       return {
         ...state,
         books: [...state.books, payload],
       };
-    case ADD:
-      return {
-        ...state,
-        books: [...state.books, payload],
-      };
-    case REMOVE:
+    case `${REMOVE}/fulfilled`:
       return {
         books: [...state.books.filter((item) => item.id !== payload)],
       };
@@ -64,25 +67,22 @@ const bookReducer = (state = initialState, action) => {
 
 // Action Creators
 
-export const Books = (books) => ({ type: LOAD, payload: books });
-
-export const LoadBooks = () => async (dispatch) => {
-  try {
+export const LoadBooks = createAsyncThunk(
+  LOAD,
+  async () => {
     const response = await axios.get('/books');
     const books = Object.keys(response.data).map((key) => ({
-      id: key,
+      item_id: key,
       ...response.data[key][0],
     }));
     console.log(books);
-    dispatch(Books(books));
-    return Promise.resolve(books);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+    return books;
+  },
+);
 
-export const AddBook = (book) => async (dispatch) => {
-  try {
+export const AddBook = createAsyncThunk(
+  ADD,
+  async (book) => {
     const response = await axios.post('/books',
       {
         item_id: book.id,
@@ -90,24 +90,22 @@ export const AddBook = (book) => async (dispatch) => {
         author: book.author,
         category: book.category,
       });
-    console.log(response);
-    dispatch({ type: ADD, payload: book });
-    return Promise.resolve(response);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
+    console.log(response.data);
+    return response.data;
+  },
+);
 
-export const RemoveBook = (id) => async (dispatch) => {
-  try {
-    const response = await axios.post(`/books/${id}`);
-    dispatch({ type: REMOVE, payload: id });
-    return Promise.resolve(response.data);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
-
-// (id) => ({ type: REMOVE, payload: id });
+export const RemoveBook = createAsyncThunk(
+  REMOVE,
+  async (id) => {
+    console.log(id);
+    const response = await axios.delete(`/books/${id}`,
+      {
+        item_id: id,
+      });
+    console.log(response.data);
+    return { id };
+  },
+);
 
 export default bookReducer;
