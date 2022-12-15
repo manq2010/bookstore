@@ -9,7 +9,7 @@ const LogoContainer = styled.h1`
   font-size: 1.875rem;
   font-weight: 700;
   color: #0290ff;
-  margin-top: 2rem;
+  margin-top: 2.5drem;
 
 @media (min-width: 768px) {
     display: block;
