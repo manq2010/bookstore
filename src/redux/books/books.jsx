@@ -11,32 +11,9 @@ const EDIT = 'my-app/bookstore/EditBook';
 // Define an initial state value for the app
 
 const initialState = {
-  // books: [
-  //   {
-  //     id: 1,
-  //     author: 'author 1',
-  //     title: 'Book Description 1',
-  //     category: 'Sci-Fi',
-  //   },
-  //   {
-  //     id: 2,
-  //     author: 'author 2',
-  //     title: 'Book Description 2',
-  //     category: 'Economy',
-  //   },
-  //   {
-  //     id: 3,
-  //     author: 'author 3',
-  //     title: 'Book Description 3',
-  //     category: 'Sports',
-  //   },
-  // ],
-
   books: [],
 };
 // Reducer
-
-// const [pending, fulfilled, rejected] = createAsyncThunkStates;
 
 const bookReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -75,7 +52,6 @@ export const LoadBooks = createAsyncThunk(
       item_id: key,
       ...response.data[key][0],
     }));
-    console.log(books);
     return books;
   },
 );
@@ -90,7 +66,6 @@ export const AddBook = createAsyncThunk(
         author: book.author,
         category: book.category,
       });
-    console.log(response.data);
     return response.data;
   },
 );
@@ -98,12 +73,10 @@ export const AddBook = createAsyncThunk(
 export const RemoveBook = createAsyncThunk(
   REMOVE,
   async (id) => {
-    console.log(id);
-    const response = await axios.delete(`/books/${id}`,
+    await axios.delete(`/books/${id}`,
       {
         item_id: id,
       });
-    console.log(response.data);
     return { id };
   },
 );
