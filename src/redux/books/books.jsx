@@ -6,36 +6,31 @@ import axios from '../../axios';
 const LOAD = 'bookstore/books/LoadBooks';
 const ADD = 'bookstore/books/AddBook';
 const REMOVE = 'bookstore/books/RemoveBook';
-const EDIT = 'my-app/bookstore/EditBook';
 
 // Define an initial state value for the app
 
 const initialState = {
   books: [],
 };
+
 // Reducer
 
 const bookReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case `${LOAD}/fulfilled`:
+    case LOAD:
       return {
         ...state,
         books: [payload],
       };
-    case `${ADD}/fulfilled `:
+    case ADD:
       return {
         ...state,
         books: [...state.books, payload],
       };
-    case `${REMOVE}/fulfilled`:
+    case REMOVE:
       return {
         books: [...state.books.filter((item) => item.id !== payload)],
-      };
-
-    case EDIT:
-      return {
-        books: [...state.books, payload],
       };
     default:
       return state;
@@ -46,38 +41,38 @@ const bookReducer = (state = initialState, action) => {
 
 export const LoadBooks = createAsyncThunk(
   LOAD,
-  async () => {
+  async (_, { dispatch }) => {
     const response = await axios.get('/books');
     const books = Object.keys(response.data).map((key) => ({
       item_id: key,
       ...response.data[key][0],
     }));
-    return books;
+    dispatch(({ type: LOAD, payload: books }));
   },
 );
 
 export const AddBook = createAsyncThunk(
   ADD,
-  async (book) => {
-    const response = await axios.post('/books',
+  async (book, { dispatch }) => {
+    await axios.post('/books',
       {
         item_id: book.id,
         title: book.title,
         author: book.author,
         category: book.category,
       });
-    return response.data;
+    dispatch({ type: ADD, payload: book });
   },
 );
 
 export const RemoveBook = createAsyncThunk(
   REMOVE,
-  async (id) => {
+  async (id, { dispatch }) => {
     await axios.delete(`/books/${id}`,
       {
         item_id: id,
       });
-    return { id };
+    dispatch({ type: REMOVE, payload: id });
   },
 );
 
