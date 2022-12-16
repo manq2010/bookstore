@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import BookItem from './BookItem';
 
 const Wrapper = styled.div`
-margin: 0 1rem 0 1rem;
+margin: 0 4% 0 4%;
 background-color: #fafafa;
-padding: 1rem;
+padding: 4%;
 border-bottom-left-radius: 0.25rem;
 border-bottom-right-radius: 0.25rem;
 border-top: 1px solid gray;

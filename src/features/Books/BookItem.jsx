@@ -136,17 +136,21 @@ const Button = styled.button`
 `;
 
 const BookProgressWrapper = styled.div`
-  width: 5.625rem;
-  height: 5.625rem;
-  padding: 0.63rem 0.625rem 0.75rem 0.75rem;
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: row;
 `;
 
 const CircularProgressContainer = styled.div`
   display: flex;
   align-items: center;
+  width: 5.625rem;
+  height: 5.625rem;
+  padding: 0.63rem 0.625rem 0.75rem 0.75rem;
+  display: none;
+  @media (min-width: 640px) {
+    display: block;
+  }
 `;
 
 const CircularProgress = styled.div`
@@ -157,6 +161,74 @@ const CircularProgress = styled.div`
   border: 5px solid #307bbe;
   border-left-color: #e8e8e8;
   transform: rotate(45deg);
+`;
+
+const ProgressStatus = styled.div`
+
+`;
+
+const PercentateComplete = styled.p`
+  font-family: "Montserrat",sans-serif;
+  color: #121212;
+`;
+
+const Completed = styled.p`
+  font-family: "Montserrat",sans-serif;
+  color: #121212;
+  font-size: .875rem;
+  opacity: .5;
+`;
+
+const VerticalProgressDivider = styled.div`
+  width: 0.125rem;
+  height: 4.375rem;
+  margin: 0 5% 0 10%;
+  background-color: #e8e8e8;
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  }
+`;
+
+const CurrentChapterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  grid-gap: 20px;
+  gap: 20px;
+  width: 14rem;
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  }
+`;
+
+const ChapterLabel = styled.p`
+  font-family: "Roboto Slab",serif;
+  font-weight: 300;
+  color: #121212;
+  font-size: .813rem;
+  opacity: .5;
+`;
+
+const CurrentChapter = styled.p`
+  margin-top: 0.438rem;
+  font-size: 1rem;
+  letter-spacing: -.4px;
+  font-family: "Roboto Slab",serif;
+  font-weight: 300;
+  color: #121212;
+`;
+
+const ProgressButton = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: #0290ff;
+  border-radius: 3px;
+  padding: 8px 10px;
+  font-family: "Roboto Slab",serif;
+  font-weight: 300;
+  letter-spacing: .5px;
+  color: #fff;
 `;
 
 const BookItem = () => {
@@ -235,15 +307,28 @@ const BookItem = () => {
                 <CircularProgressContainer>
                   <CircularProgress />
                 </CircularProgressContainer>
-                <div>
-                  <h4>Current Chapter</h4>
-                  <p>Introduction</p>
-                  <button
-                    type="submit"
-                  >
-                    Update Progress
-                  </button>
-                </div>
+                <ProgressStatus>
+                  <PercentateComplete>10%</PercentateComplete>
+                  <Completed>Completed</Completed>
+                </ProgressStatus>
+                <VerticalProgressDivider />
+                <CurrentChapterContainer>
+                  <div>
+                    <ChapterLabel>
+                      CURRENT CHAPTER
+                    </ChapterLabel>
+                    <CurrentChapter>
+                      Chapter 3: &quot;A Lesson Learned&quot;
+                    </CurrentChapter>
+                  </div>
+                  <div>
+                    <ProgressButton
+                      type="submit"
+                    >
+                      UPDATE PROGRESS
+                    </ProgressButton>
+                  </div>
+                </CurrentChapterContainer>
               </BookProgressWrapper>
             </BookListItem>
           ))}

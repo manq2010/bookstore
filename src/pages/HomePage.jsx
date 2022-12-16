@@ -6,14 +6,12 @@ const HomeWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  margin: 0 1rem 0 1rem;
+  margin: 0 4% 0 4%;
   background-color: #fafafa;
   padding: 1rem;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   border-top: 1px solid gray;
-
 `;
 
 const HomeHeader = styled.h2`
@@ -30,13 +28,6 @@ const ParagraphHome = styled.p`
   text-align: justify; 
   margin: auto 3rem;
 `;
-
-// const Span = styled.span`
-// &:after {
-//   content: "";
-//   white-space: pre;
-// }
-// `;
 
 const HomePage = () => (
   <HomeWrapper>

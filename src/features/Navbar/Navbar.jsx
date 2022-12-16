@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer';
 const Button = styled.button`
   display: block;
   width: fit-content;
-  margin: 1rem 0 1rem 1rem;
+  margin: 1rem 0 1rem 4%;
   cursor: pointer;
   z-index: 2;
   color: #3fffd2;
